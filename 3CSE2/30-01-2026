@@ -1,0 +1,73 @@
+abstract class Account{
+    String AccountHolder;
+    int PrincipalAmt;
+    Account(String AccountHolder,int PrincipalAmt){
+        this.AccountHolder = AccountHolder;
+        this.PrincipalAmt = PrincipalAmt;
+    }
+    abstract double calculateInterest();
+}
+class FixDeposit extends Account{
+    int RateOfInterest;
+    int Duration;
+    FixDeposit(String AccountHolder,int PrincipalAmt,int RateOfInterest,int Duration){
+        super(AccountHolder,PrincipalAmt);
+        this.RateOfInterest = RateOfInterest;
+        this.Duration = Duration;
+    }
+    double calculateInterest(){
+        return (PrincipalAmt * RateOfInterest * Duration)/100;
+    }
+}
+
+class RecurringDeposit extends Account{
+    int MaturityAmt;
+    int Duration;
+    int RateOfInterest;
+    int MonthlyDeposit;
+    RecurringDeposit(String AccountHolder,int PrincipalAmt,int Duration,int RateOfInterest,int MonthlyDeposit){
+        super(AccountHolder,PrincipalAmt);
+        this.Duration = Duration;
+        this.RateOfInterest = RateOfInterest;
+        this.MonthlyDeposit = MonthlyDeposit;
+        MaturityAmt = MonthlyDeposit * Duration;
+    }
+    double calculateInterest(){
+        return (MaturityAmt*Duration*RateOfInterest)/1200;
+    }
+}
+class main{
+    public static void main(String[] args){
+        FixDeposit cus1 = new FixDeposit("Vishal",1000,12,12);
+        System.out.println(cus1.calculateInterest());
+        RecurringDeposit cus2 = new RecurringDeposit("Chaman",1000,12,12,100);
+        System.out.println(cus2.calculateInterest());
+    }
+}
+
+
+import java.util.*;
+class SuperClass{
+    int variableA;
+    SuperClass(){
+        Scanner s = new Scanner(System.in);
+        variableA = s.nextInt();
+    }
+}
+class Subclass extends SuperClass{
+    int variableB;
+    Subclass(){
+        super();
+        variableB = super.variableA*2;
+    }
+    void displayVariables(){
+        System.out.println("The value of SuperClass" + super.variableA);
+        System.out.println("The value of SubClass" + variableB);
+    }
+}
+class CSE{
+    public static void main(String[] args){
+        Subclass obj = new Subclass();
+        obj.displayVariables();
+    }
+}
